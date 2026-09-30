@@ -249,7 +249,13 @@ export async function POST(request: Request) {
       logs.push(...parseUsefulLogs(result.stderr));
 
       if (!result.ok) {
-        const detail = (result.stderr || result.stdout).trim().split("\n").slice(-6).join(" | ");
+        const detail = (result.stderr || result.stdout)
+          .split("\n")
+          .map((line) => line.trim())
+          .filter((line) => line && !line.startsWith("at ") && !line.startsWith("Node.js v"))
+          .slice(0, 6)
+          .join(" | ")
+          .slice(0, 700);
         throw new Error(`${getStepLabel(script)} step failed: ${detail || "no output"}`);
       }
     }

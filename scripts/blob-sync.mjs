@@ -1,6 +1,6 @@
 import { readFile, writeFile, mkdir, access } from "fs/promises";
 import path from "path";
-import { list, put } from "@vercel/blob";
+import { get, list, put } from "@vercel/blob";
 import { DATA_DIR } from "./data-dir.mjs";
 
 const mode = process.argv[2];
@@ -47,6 +47,46 @@ async function exists(filePath) {
   }
 }
 
+// Stores can be public or private, and put() rejects the wrong access type.
+// Try private first (safer), fall back to public, and remember what worked.
+let workingAccess = process.env.LEADGRID_BLOB_ACCESS || "";
+
+async function putFile(file, body) {
+  const order = workingAccess ? [workingAccess] : ["private", "public"];
+  const errors = [];
+
+  for (const access of order) {
+    try {
+      await put(blobPath(file), body, {
+        access,
+        allowOverwrite: true,
+        contentType: contentType(file),
+        cacheControlMaxAge: 0
+      });
+      workingAccess = access;
+      return;
+    } catch (error) {
+      errors.push(`${access}: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
+
+  throw new Error(`Blob upload of ${file} failed (${errors.join(" / ")})`);
+}
+
+async function readBlob(blob) {
+  try {
+    const response = await fetch(`${blob.url}?v=${Date.now()}`, { cache: "no-store" });
+    if (response.ok) return await response.text();
+  } catch {
+    // fall through to the authenticated read used by private stores
+  }
+
+  const result = await get(blob.pathname, { access: "private", useCache: false });
+  if (!result || result.statusCode !== 200) return null;
+
+  return await new Response(result.stream).text();
+}
+
 async function pull() {
   await mkdir(DATA_DIR, { recursive: true });
 
@@ -62,13 +102,9 @@ async function pull() {
     const blob = byPath.get(blobPath(file));
     if (!blob?.url) continue;
 
-    const response = await fetch(`${blob.url}?v=${Date.now()}`, {
-      cache: "no-store"
-    });
+    const body = await readBlob(blob);
+    if (body === null) continue;
 
-    if (!response.ok) continue;
-
-    const body = await response.text();
     await writeFile(path.join(DATA_DIR, file), body);
     pulled += 1;
   }
@@ -88,12 +124,7 @@ async function push() {
 
     const body = await readFile(filePath);
 
-    await put(blobPath(file), body, {
-      access: "public",
-      allowOverwrite: true,
-      contentType: contentType(file),
-      cacheControlMaxAge: 0
-    });
+    await putFile(file, body);
 
     pushed += 1;
   }

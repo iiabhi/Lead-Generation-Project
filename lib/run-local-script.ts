@@ -123,12 +123,31 @@ export async function runLocalScript(
     return runNodeScript(scriptPath, timeoutMs);
   }
 
-  await runNodeScript("scripts/blob-pull.mjs", 60 * 1000);
+  if (!process.env.BLOB_READ_WRITE_TOKEN) {
+    return {
+      ok: false,
+      code: null,
+      stdout: "",
+      stderr:
+        "BLOB_READ_WRITE_TOKEN is not set. In Vercel, open Storage, create a Blob store and connect it to this project, then redeploy."
+    };
+  }
+
+  const pull = await runNodeScript("scripts/blob-pull.mjs", 60 * 1000);
+
+  if (!pull.ok) {
+    return { ...pull, stderr: `Blob pull failed: ${pull.stderr || pull.stdout}`.trim() };
+  }
+
   await ensureSeedFiles();
 
   const result = await runNodeScript(scriptPath, timeoutMs);
 
-  await runNodeScript("scripts/blob-push.mjs", 60 * 1000);
+  const push = await runNodeScript("scripts/blob-push.mjs", 60 * 1000);
+
+  if (!push.ok && result.ok) {
+    return { ...push, stderr: `Blob push failed: ${push.stderr || push.stdout}`.trim() };
+  }
 
   return result;
 }

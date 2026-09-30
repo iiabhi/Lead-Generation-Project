@@ -1,4 +1,4 @@
-import { access } from "fs/promises";
+import { access, copyFile, mkdir } from "fs/promises";
 import { constants } from "fs";
 import { spawn } from "child_process";
 import path from "path";
@@ -88,6 +88,28 @@ function runNodeScript(
   });
 }
 
+const seedFiles = ["saas-conference-source-pages.json", "open-lead-rss-sources.json"];
+
+// On Vercel the data dir is an empty /tmp folder, so copy the bundled
+// source configs into it when they are missing.
+async function ensureSeedFiles() {
+  await mkdir(runtimeDataDir, { recursive: true });
+
+  for (const file of seedFiles) {
+    const target = path.join(runtimeDataDir, file);
+
+    try {
+      await access(target, constants.F_OK);
+    } catch {
+      try {
+        await copyFile(path.join(process.cwd(), "data", file), target);
+      } catch {
+        // seed file not bundled; the script will report the missing config
+      }
+    }
+  }
+}
+
 export async function runLocalScript(
   scriptPath: string,
   timeoutMs = 20 * 60 * 1000
@@ -102,6 +124,7 @@ export async function runLocalScript(
   }
 
   await runNodeScript("scripts/blob-pull.mjs", 60 * 1000);
+  await ensureSeedFiles();
 
   const result = await runNodeScript(scriptPath, timeoutMs);
 

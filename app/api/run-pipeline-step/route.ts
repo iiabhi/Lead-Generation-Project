@@ -247,6 +247,11 @@ export async function POST(request: Request) {
 
       logs.push(...parseUsefulLogs(result.stdout));
       logs.push(...parseUsefulLogs(result.stderr));
+
+      if (!result.ok) {
+        const detail = (result.stderr || result.stdout).trim().split("\n").slice(-6).join(" | ");
+        throw new Error(`${getStepLabel(script)} step failed: ${detail || "no output"}`);
+      }
     }
 
     if (step === "qualify") {

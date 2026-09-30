@@ -3,7 +3,6 @@ import path from "path";
 import { DATA_DIR, dataPath } from "./data-dir.mjs";
 
 const ROOT = process.cwd();
-const DATA_DIR = DATA_DIR;
 
 await mkdir(DATA_DIR, { recursive: true });
 

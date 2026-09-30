@@ -373,7 +373,7 @@ export default function LeadDashboard({
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <h3 className="font-semibold">{source.name}</h3>
-                      <p className="mt-1 text-xs uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                      <p className="mt-1 text-xs tracking-wide text-slate-500 dark:text-slate-400">
                         {source.sourceType}
                       </p>
                     </div>

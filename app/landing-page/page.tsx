@@ -57,12 +57,12 @@ export default function LandingPage() {
   const [darkMode, setDarkMode] = useState(false);
 
   const pageClass = darkMode
-    ? "relative min-h-screen overflow-hidden bg-[#070816] text-white"
-    : "relative min-h-screen overflow-hidden bg-[#fff0bd] text-slate-950";
+    ? "relative min-h-screen overflow-hidden bg-slate-950 text-white"
+    : "relative min-h-screen overflow-hidden bg-slate-50 text-slate-950";
 
   const navClass = darkMode
-    ? "fixed left-1/2 top-4 z-50 w-[calc(100%-2rem)] max-w-5xl -translate-x-1/2 rounded-full border border-white/10 bg-slate-950/78 px-4 py-3 shadow-2xl shadow-black/30 backdrop-blur-xl md:top-5 md:w-[82%]"
-    : "fixed left-1/2 top-4 z-50 w-[calc(100%-2rem)] max-w-5xl -translate-x-1/2 rounded-full border border-slate-950/10 bg-[#fff7dc]/82 px-4 py-3 shadow-2xl shadow-amber-950/10 backdrop-blur-xl md:top-5 md:w-[82%]";
+    ? "fixed left-1/2 top-4 z-50 w-[calc(100%-2rem)] max-w-5xl -translate-x-1/2 rounded-full border border-white/10 bg-slate-950/78 px-4 py-3 shadow-lg shadow-black/30 backdrop-blur-xl md:top-5 md:w-[82%]"
+    : "fixed left-1/2 top-4 z-50 w-[calc(100%-2rem)] max-w-5xl -translate-x-1/2 rounded-full border border-slate-200 bg-white/82 px-4 py-3 shadow-lg shadow-slate-900/5 backdrop-blur-xl md:top-5 md:w-[82%]";
 
   const mutedText = darkMode ? "text-slate-300" : "text-slate-700";
   const softText = darkMode ? "text-slate-400" : "text-slate-600";
@@ -104,29 +104,15 @@ export default function LandingPage() {
         }
 
         .retro-font {
-          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+          font-family: var(--font-geist-sans), system-ui, sans-serif;
         }
 
         .retro-title {
-          font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-          letter-spacing: -0.11em;
-          text-shadow:
-            6px 0 0 rgba(139, 92, 246, 0.58),
-            -6px 0 0 rgba(34, 211, 238, 0.38),
-            0 8px 0 rgba(15, 23, 42, 0.24);
+          letter-spacing: -0.03em;
         }
 
         .retro-box {
-          clip-path: polygon(
-            0 0,
-            calc(100% - 12px) 0,
-            calc(100% - 12px) 12px,
-            100% 12px,
-            100% 100%,
-            12px 100%,
-            12px calc(100% - 12px),
-            0 calc(100% - 12px)
-          );
+          border-radius: 0.75rem;
         }
 
         .float-pixel {
@@ -175,7 +161,7 @@ export default function LandingPage() {
 
       <div className="pointer-events-none fixed inset-0 z-[1]">
         <div
-          className={darkMode ? "absolute inset-0 opacity-[0.14] [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] [background-size:34px_34px]" : "absolute inset-0 opacity-[0.26] [background-image:linear-gradient(to_right,#111827_1px,transparent_1px),linear-gradient(to_bottom,#111827_1px,transparent_1px)] [background-size:34px_34px]"}
+          className={darkMode ? "absolute inset-0 opacity-[0.5] [background-image:radial-gradient(circle,#94a3b8_1px,transparent_1px)] [background-size:24px_24px]" : "absolute inset-0 opacity-[0.5] [background-image:radial-gradient(circle,#94a3b8_1px,transparent_1px)] [background-size:24px_24px]"}
         />
       </div>
 
@@ -189,30 +175,30 @@ export default function LandingPage() {
       <nav className={navClass}>
         <div className="mx-auto flex items-center justify-between gap-4">
           <Link href="/landing-page" className="flex items-center gap-3">
-            <span className="grid h-11 w-11 grid-cols-2 gap-0.5 overflow-hidden rounded-xl border-2 border-slate-950 bg-slate-950 p-1 shadow-[4px_4px_0_rgba(139,92,246,0.55)]">
+            <span className="grid h-11 w-11 grid-cols-2 gap-0.5 overflow-hidden rounded-xl border border-slate-200 bg-slate-950 p-1 shadow-sm">
               <span className="bg-violet-400" />
-              <span className="bg-cyan-300" />
+              <span className="bg-indigo-500" />
               <span className="bg-emerald-300" />
               <span className="bg-amber-300" />
             </span>
             <span>
-              <span className="retro-font block text-xl font-black uppercase leading-none tracking-[-0.08em]">
+              <span className="retro-font block text-xl font-semibold leading-none tracking-tight">
                 LeadGrid
               </span>
-              <span className={darkMode ? "block text-[10px] font-black uppercase tracking-[0.18em] text-slate-500" : "block text-[10px] font-black uppercase tracking-[0.18em] text-slate-600"}>
+              <span className={darkMode ? "block text-xs font-semibold text-slate-500" : "block text-xs font-semibold text-slate-600"}>
                 Signal Console
               </span>
             </span>
           </Link>
 
           <div className="hidden items-center gap-8 md:flex">
-            <a href="#about" className={darkMode ? "retro-font text-xs font-black uppercase tracking-[0.16em] text-slate-300 hover:text-cyan-300" : "retro-font text-xs font-black uppercase tracking-[0.16em] text-slate-700 hover:text-violet-700"}>
+            <a href="#about" className={darkMode ? "retro-font text-xs font-semibold text-slate-300 hover:text-indigo-400" : "retro-font text-xs font-semibold text-slate-700 hover:text-violet-700"}>
               About
             </a>
-            <a href="#how" className={darkMode ? "retro-font text-xs font-black uppercase tracking-[0.16em] text-slate-300 hover:text-cyan-300" : "retro-font text-xs font-black uppercase tracking-[0.16em] text-slate-700 hover:text-violet-700"}>
+            <a href="#how" className={darkMode ? "retro-font text-xs font-semibold text-slate-300 hover:text-indigo-400" : "retro-font text-xs font-semibold text-slate-700 hover:text-violet-700"}>
               How it works
             </a>
-            <a href="#workflow" className={darkMode ? "retro-font text-xs font-black uppercase tracking-[0.16em] text-slate-300 hover:text-cyan-300" : "retro-font text-xs font-black uppercase tracking-[0.16em] text-slate-700 hover:text-violet-700"}>
+            <a href="#workflow" className={darkMode ? "retro-font text-xs font-semibold text-slate-300 hover:text-indigo-400" : "retro-font text-xs font-semibold text-slate-700 hover:text-violet-700"}>
               Workflow
             </a>
           </div>
@@ -221,7 +207,7 @@ export default function LandingPage() {
             <button
               onClick={() => setDarkMode(!darkMode)}
               aria-label="Toggle color mode"
-              className={darkMode ? "grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-slate-900 text-lg shadow-sm transition hover:-translate-y-0.5" : "grid h-10 w-10 place-items-center rounded-full border border-slate-950/10 bg-white/80 text-lg shadow-sm transition hover:-translate-y-0.5"}
+              className={darkMode ? "grid h-10 w-10 place-items-center rounded-full border border-white/10 bg-slate-900 text-lg shadow-sm transition hover:-translate-y-0.5" : "grid h-10 w-10 place-items-center rounded-full border border-slate-200 bg-white/80 text-lg shadow-sm transition hover:-translate-y-0.5"}
               title={darkMode ? "Switch to light mode" : "Switch to dark mode"}
             >
               {darkMode ? "☀" : "☾"}
@@ -229,7 +215,7 @@ export default function LandingPage() {
 
             <Link
               href="/console"
-              className="rounded-full bg-slate-950 px-5 py-2.5 text-xs font-black uppercase tracking-[0.14em] text-white shadow-[4px_4px_0_rgba(139,92,246,0.6)] transition hover:-translate-y-0.5"
+              className="btn-3d btn-3d-dark px-5 py-2.5 text-xs"
             >
               Open App
             </Link>
@@ -239,30 +225,30 @@ export default function LandingPage() {
 
       <section className="relative z-20 min-h-screen w-full overflow-hidden">
         <div className="pointer-events-none absolute inset-0 z-10">
-          <span className="float-pixel absolute left-[5%] top-[18%] h-5 w-5 bg-violet-400" />
-          <span className="float-pixel absolute left-[10%] top-[36%] h-3 w-3 bg-cyan-300 [animation-delay:0.2s]" />
-          <span className="float-pixel absolute left-[17%] top-[13%] h-4 w-4 bg-emerald-300 [animation-delay:0.4s]" />
-          <span className="float-pixel absolute left-[80%] top-[14%] h-5 w-5 bg-amber-300 [animation-delay:0.6s]" />
-          <span className="float-pixel absolute left-[91%] top-[29%] h-3 w-3 bg-violet-400 [animation-delay:0.8s]" />
-          <span className="float-pixel absolute left-[84%] top-[75%] h-5 w-5 bg-cyan-300 [animation-delay:1s]" />
-          <span className="float-pixel absolute left-[9%] top-[80%] h-4 w-4 bg-amber-300 [animation-delay:1.2s]" />
-          <span className="float-pixel absolute left-[35%] top-[88%] h-3 w-3 bg-emerald-300 [animation-delay:1.4s]" />
+          <span className="float-pixel rounded-full absolute left-[5%] top-[18%] h-5 w-5 bg-violet-400" />
+          <span className="float-pixel rounded-full absolute left-[10%] top-[36%] h-3 w-3 bg-indigo-500 [animation-delay:0.2s]" />
+          <span className="float-pixel rounded-full absolute left-[17%] top-[13%] h-4 w-4 bg-emerald-300 [animation-delay:0.4s]" />
+          <span className="float-pixel rounded-full absolute left-[80%] top-[14%] h-5 w-5 bg-amber-300 [animation-delay:0.6s]" />
+          <span className="float-pixel rounded-full absolute left-[91%] top-[29%] h-3 w-3 bg-violet-400 [animation-delay:0.8s]" />
+          <span className="float-pixel rounded-full absolute left-[84%] top-[75%] h-5 w-5 bg-indigo-500 [animation-delay:1s]" />
+          <span className="float-pixel rounded-full absolute left-[9%] top-[80%] h-4 w-4 bg-amber-300 [animation-delay:1.2s]" />
+          <span className="float-pixel rounded-full absolute left-[35%] top-[88%] h-3 w-3 bg-emerald-300 [animation-delay:1.4s]" />
         </div>
 
         <div className="relative z-20 grid min-h-screen w-full items-center gap-10 px-5 pb-14 pt-28 md:px-10 lg:grid-cols-[1.05fr_0.95fr] lg:px-16 xl:px-24">
           <div className="max-w-5xl">
-            <div className={darkMode ? "retro-box mb-8 inline-flex border-2 border-violet-400/40 bg-violet-400/10 px-4 py-2 text-xs font-black uppercase tracking-[0.24em] text-violet-200" : "retro-box mb-8 inline-flex border-2 border-violet-500/40 bg-violet-100 px-4 py-2 text-xs font-black uppercase tracking-[0.24em] text-violet-700"}>
+            <div className={darkMode ? "retro-box mb-8 inline-flex border border-violet-400/40 bg-violet-400/10 px-4 py-2 text-xs font-semibold text-violet-200" : "retro-box mb-8 inline-flex border border-violet-500/40 bg-violet-100 px-4 py-2 text-xs font-semibold text-violet-700"}>
               Lead intelligence for outbound teams
             </div>
 
-            <h1 className="retro-title text-[5rem] font-black uppercase leading-[0.78] sm:text-[7rem] md:text-[9.2rem] xl:text-[12rem]">
+            <h1 className="retro-title tracking-tight text-6xl font-semibold leading-[0.95] sm:text-7xl md:text-8xl">
               Lead
               <br />
               Grid
             </h1>
 
             <p className={`mt-8 max-w-3xl text-xl font-semibold leading-8 md:text-2xl md:leading-10 ${mutedText}`}>
-              A retro-styled lead intelligence platform that turns public company activity into a
+              A lead intelligence platform that turns public company activity into a
               ranked outbound queue for appointment-setting, SDR teams, and sales operators.
             </p>
 
@@ -270,7 +256,7 @@ export default function LandingPage() {
               {features.map((feature) => (
                 <span
                   key={feature}
-                  className={darkMode ? "retro-box border border-slate-800 bg-slate-950/70 px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-slate-300" : "retro-box border border-slate-300 bg-white/75 px-3 py-2 text-xs font-black uppercase tracking-[0.12em] text-slate-700"}
+                  className={darkMode ? "retro-box border border-slate-800 bg-slate-950/70 px-3 py-2 text-xs font-semibold text-slate-300" : "retro-box border border-slate-300 bg-white/75 px-3 py-2 text-xs font-semibold text-slate-700"}
                 >
                   {feature}
                 </span>
@@ -280,28 +266,28 @@ export default function LandingPage() {
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
               <Link
                 href="/console"
-                className="retro-box bg-slate-950 px-8 py-4 text-center text-sm font-black uppercase tracking-[0.16em] text-white shadow-[8px_8px_0_rgba(139,92,246,0.65)] transition hover:-translate-y-1 hover:shadow-[12px_12px_0_rgba(139,92,246,0.65)]"
+                className="btn-3d px-8 py-4 text-sm"
               >
                 Open App
               </Link>
 
               <a
                 href="#how"
-                className={darkMode ? "retro-box border-2 border-slate-700 bg-slate-900 px-8 py-4 text-center text-sm font-black uppercase tracking-[0.16em] text-slate-100 transition hover:-translate-y-1 hover:border-cyan-300" : "retro-box border-2 border-slate-950 bg-white px-8 py-4 text-center text-sm font-black uppercase tracking-[0.16em] text-slate-950 transition hover:-translate-y-1 hover:border-violet-500"}
+                className={darkMode ? "btn-3d btn-3d-dark px-8 py-4 text-sm" : "btn-3d btn-3d-light px-8 py-4 text-sm"}
               >
                 See the System
               </a>
             </div>
           </div>
 
-          <div className={darkMode ? "retro-box scan-screen relative overflow-hidden border-2 border-slate-700 bg-slate-950/88 p-5 shadow-[14px_14px_0_rgba(139,92,246,0.28)]" : "retro-box scan-screen relative overflow-hidden border-2 border-slate-950 bg-white/88 p-5 shadow-[14px_14px_0_rgba(139,92,246,0.28)]"}>
+          <div className={darkMode ? "retro-box scan-screen relative overflow-hidden border border-slate-700 bg-slate-950/88 p-5 shadow-sm" : "retro-box scan-screen relative overflow-hidden border border-slate-200 bg-white/88 p-5 shadow-sm"}>
             <div className="relative z-10">
               <div className={darkMode ? "mb-5 flex items-center justify-between border-b border-slate-700 pb-4" : "mb-5 flex items-center justify-between border-b border-slate-300 pb-4"}>
                 <div>
-                  <p className="retro-font text-xs font-black uppercase tracking-[0.2em] text-cyan-500">
+                  <p className="retro-font text-xs font-semibold text-indigo-400">
                     Product Console
                   </p>
-                  <p className="mt-1 text-3xl font-black">Signal Engine</p>
+                  <p className="mt-1 text-3xl font-semibold">Signal Engine</p>
                 </div>
 
                 <div className="flex gap-1">
@@ -314,7 +300,7 @@ export default function LandingPage() {
               <div className="space-y-3 font-mono text-sm">
                 {[
                   ["text-emerald-500", "collect public company signals"],
-                  ["text-cyan-500", "merge mentions into unique companies"],
+                  ["text-indigo-400", "merge mentions into unique companies"],
                   ["text-violet-500", "score intent, fit and confidence"],
                   ["text-amber-500", "reveal reviewed leads in batches"],
                 ].map(([color, copy], index) => (
@@ -326,14 +312,14 @@ export default function LandingPage() {
               </div>
 
               <div className="relative mx-auto mt-8 aspect-square max-w-[420px]">
-                <div className="absolute inset-0 border-2 border-violet-400/30" />
-                <div className="absolute inset-[12%] border-2 border-cyan-300/40" />
-                <div className="absolute inset-[24%] border-2 border-emerald-300/40" />
+                <div className="absolute inset-0 border border-violet-400/30" />
+                <div className="absolute inset-[12%] border border-cyan-300/40" />
+                <div className="absolute inset-[24%] border border-emerald-300/40" />
 
                 <div className="glow-core absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 bg-violet-500" />
 
                 <span className="absolute left-[20%] top-[25%] h-5 w-5 bg-emerald-300 shadow-[0_0_24px_rgba(52,211,153,0.9)]" />
-                <span className="absolute left-[72%] top-[28%] h-4 w-4 bg-cyan-300 shadow-[0_0_24px_rgba(34,211,238,0.9)]" />
+                <span className="absolute left-[72%] top-[28%] h-4 w-4 bg-indigo-500 shadow-[0_0_24px_rgba(34,211,238,0.9)]" />
                 <span className="absolute left-[76%] top-[67%] h-6 w-6 bg-violet-400 shadow-[0_0_24px_rgba(167,139,250,0.9)]" />
                 <span className="absolute left-[26%] top-[74%] h-4 w-4 bg-amber-300 shadow-[0_0_24px_rgba(252,211,77,0.9)]" />
               </div>
@@ -344,15 +330,15 @@ export default function LandingPage() {
 
       <section id="about" className="relative z-20 overflow-hidden bg-slate-950 px-5 py-24 text-white md:px-10 lg:px-20">
         <div className="pointer-events-none absolute inset-0 z-0">
-          <div className="absolute inset-0 opacity-[0.10] [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] [background-size:34px_34px]" />
+          <div className="absolute inset-0 opacity-[0.5] [background-image:radial-gradient(circle,#94a3b8_1px,transparent_1px)] [background-size:24px_24px]" />
         </div>
         <div className="relative z-20 mx-auto max-w-7xl">
-          <p className="retro-font text-sm font-black uppercase tracking-[0.24em] text-violet-300">
+          <p className="retro-font text-sm font-semibold text-violet-300">
             About the product
           </p>
 
           <div className="mt-6 grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-            <h2 className="text-5xl font-black tracking-tight md:text-7xl">
+            <h2 className="text-5xl font-semibold tracking-tight md:text-6xl">
               Built for finding the right companies before outreach begins.
             </h2>
 
@@ -376,11 +362,11 @@ export default function LandingPage() {
 
       <section id="how" className={darkMode ? "relative z-20 overflow-hidden px-5 py-24 text-white md:px-10 lg:px-20" : "relative z-20 overflow-hidden px-5 py-24 text-slate-950 md:px-10 lg:px-20"}>
         <div className="relative z-20 mx-auto max-w-7xl">
-          <p className={darkMode ? "retro-font text-sm font-black uppercase tracking-[0.24em] text-violet-300" : "retro-font text-sm font-black uppercase tracking-[0.24em] text-violet-700"}>
+          <p className={darkMode ? "retro-font text-sm font-semibold text-violet-300" : "retro-font text-sm font-semibold text-violet-700"}>
             How we are doing this
           </p>
 
-          <h2 className="mt-6 max-w-5xl text-5xl font-black tracking-tight md:text-7xl">
+          <h2 className="mt-6 max-w-5xl text-5xl font-semibold tracking-tight md:text-6xl">
             A signal pipeline that turns noisy public data into a clean lead queue.
           </h2>
 
@@ -390,12 +376,12 @@ export default function LandingPage() {
                 key={step.number}
                 className={
                   darkMode
-                    ? "retro-box border-2 border-slate-700 bg-slate-950/88 p-6 shadow-[8px_8px_0_rgba(103,232,249,0.14)]"
-                    : "retro-box border-2 border-slate-950 bg-white/88 p-6 shadow-[8px_8px_0_rgba(139,92,246,0.22)]"
+                    ? "retro-box border border-slate-700 bg-slate-950/88 p-6 shadow-sm"
+                    : "retro-box border border-slate-200 bg-white/88 p-6 shadow-sm"
                 }
               >
-                <p className="retro-font text-xs font-black text-violet-600">{step.number}</p>
-                <h3 className="mt-4 text-2xl font-black uppercase tracking-tight">{step.title}</h3>
+                <p className="retro-font text-xs font-semibold text-indigo-600">{step.number}</p>
+                <h3 className="mt-4 text-2xl font-semibold tracking-tight">{step.title}</h3>
                 <p className={`mt-4 text-sm leading-6 ${softText}`}>{step.body}</p>
               </div>
             ))}
@@ -405,15 +391,15 @@ export default function LandingPage() {
 
       <section id="workflow" className="relative z-20 overflow-hidden bg-slate-950 px-5 py-24 text-white md:px-10 lg:px-20">
         <div className="pointer-events-none absolute inset-0 z-0">
-          <div className="absolute inset-0 opacity-[0.10] [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] [background-size:34px_34px]" />
+          <div className="absolute inset-0 opacity-[0.5] [background-image:radial-gradient(circle,#94a3b8_1px,transparent_1px)] [background-size:24px_24px]" />
         </div>
         <div className="relative z-20 mx-auto max-w-7xl">
           <div className="grid gap-8 lg:grid-cols-[0.82fr_1.18fr] lg:items-end">
             <div>
-              <p className="retro-font text-sm font-black uppercase tracking-[0.24em] text-cyan-300">
+              <p className="retro-font text-sm font-semibold text-indigo-400">
                 Workflow
               </p>
-              <h2 className="mt-6 text-5xl font-black tracking-tight md:text-7xl">
+              <h2 className="mt-6 text-5xl font-semibold tracking-tight md:text-6xl">
                 From source signals to sales action.
               </h2>
             </div>
@@ -470,7 +456,7 @@ export default function LandingPage() {
               />
             </svg>
 
-            <div className="snake-packet absolute left-0 top-0 h-5 w-5 bg-cyan-300 shadow-[0_0_28px_rgba(103,232,249,0.95)]" />
+            <div className="snake-packet absolute left-0 top-0 h-5 w-5 bg-indigo-500 shadow-[0_0_28px_rgba(103,232,249,0.95)]" />
             <div className="snake-packet-two absolute left-0 top-0 h-4 w-4 bg-violet-300 shadow-[0_0_28px_rgba(196,181,253,0.95)]" />
             <div className="snake-packet-three absolute left-0 top-0 h-4 w-4 bg-emerald-300 shadow-[0_0_28px_rgba(52,211,153,0.95)]" />
 
@@ -486,18 +472,18 @@ export default function LandingPage() {
 
               return (
                 <div key={item} className={`absolute ${positions[index]} w-[25.5%]`}>
-                  <div className="retro-box group min-h-[216px] border-2 border-slate-800 bg-slate-900/94 p-6 shadow-[8px_8px_0_rgba(103,232,249,0.10)] transition duration-300 hover:-translate-y-2 hover:border-cyan-300 hover:shadow-[14px_14px_0_rgba(103,232,249,0.22)]">
+                  <div className="retro-box group min-h-[216px] border border-slate-800 bg-slate-900/94 p-6 shadow-sm transition duration-300 hover:-translate-y-2 hover:border-cyan-300 hover:shadow-sm">
                     <div className="flex items-start justify-between gap-4">
-                      <p className="retro-font text-sm font-black text-cyan-500">
+                      <p className="retro-font text-sm font-semibold text-indigo-400">
                         {(index + 1).toString().padStart(2, "0")}
                       </p>
 
-                      <span className="grid h-9 w-9 place-items-center border-2 border-cyan-300 bg-cyan-300 font-black text-slate-950 transition group-hover:rotate-6">
+                      <span className="grid h-9 w-9 place-items-center border border-cyan-300 bg-indigo-500 font-semibold text-slate-950 transition group-hover:rotate-6">
                         {index === 2 ? "↓" : index > 2 ? "←" : "→"}
                       </span>
                     </div>
 
-                    <h3 className="mt-5 text-2xl font-black tracking-tight">{item}</h3>
+                    <h3 className="mt-5 text-2xl font-semibold tracking-tight">{item}</h3>
 
                     <p className="mt-4 text-sm leading-6 text-slate-400">
                       {workflowDescriptions[index]}
@@ -512,12 +498,12 @@ export default function LandingPage() {
             {workflow.map((item, index) => (
               <div
                 key={item}
-                className="retro-box border-2 border-slate-800 bg-slate-900 p-6 shadow-[8px_8px_0_rgba(103,232,249,0.10)]"
+                className="retro-box border border-slate-800 bg-slate-900 p-6 shadow-sm"
               >
-                <p className="retro-font text-sm font-black text-cyan-500">
+                <p className="retro-font text-sm font-semibold text-indigo-400">
                   {(index + 1).toString().padStart(2, "0")}
                 </p>
-                <h3 className="mt-4 text-2xl font-black">{item}</h3>
+                <h3 className="mt-4 text-2xl font-semibold">{item}</h3>
               </div>
             ))}
           </div>
@@ -529,15 +515,15 @@ export default function LandingPage() {
         className={
           darkMode
             ? "relative z-20 overflow-hidden bg-slate-950 px-5 py-24 text-white md:px-10 lg:px-20"
-            : "relative z-20 overflow-hidden bg-[#fff0bd] px-5 py-24 text-slate-950 md:px-10 lg:px-20"
+            : "relative z-20 overflow-hidden bg-slate-50 px-5 py-24 text-slate-950 md:px-10 lg:px-20"
         }
       >
         <div className="pointer-events-none absolute inset-0 z-0">
           <div
             className={
               darkMode
-                ? "absolute inset-0 opacity-[0.10] [background-image:linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] [background-size:34px_34px]"
-                : "absolute inset-0 opacity-[0.24] [background-image:linear-gradient(to_right,#111827_1px,transparent_1px),linear-gradient(to_bottom,#111827_1px,transparent_1px)] [background-size:34px_34px]"
+                ? "absolute inset-0 opacity-[0.5] [background-image:radial-gradient(circle,#94a3b8_1px,transparent_1px)] [background-size:24px_24px]"
+                : "absolute inset-0 opacity-[0.5] [background-image:radial-gradient(circle,#94a3b8_1px,transparent_1px)] [background-size:24px_24px]"
             }
           />
           <div className="absolute left-[-120px] top-[-140px] h-[460px] w-[460px] rounded-full bg-violet-500/14 blur-3xl" />
@@ -549,14 +535,14 @@ export default function LandingPage() {
             <p
               className={
                 darkMode
-                  ? "retro-font text-sm font-black uppercase tracking-[0.24em] text-violet-300"
-                  : "retro-font text-sm font-black uppercase tracking-[0.24em] text-violet-700"
+                  ? "retro-font text-sm font-semibold text-violet-300"
+                  : "retro-font text-sm font-semibold text-violet-700"
               }
             >
               Launch the console
             </p>
 
-            <h2 className="mt-5 max-w-4xl text-5xl font-black tracking-tight md:text-7xl">
+            <h2 className="mt-5 max-w-4xl text-5xl font-semibold tracking-tight md:text-6xl">
               Ready to inspect the live queue?
             </h2>
 
@@ -574,7 +560,7 @@ export default function LandingPage() {
 
           <Link
             href="/console"
-            className="retro-box bg-slate-950 px-9 py-5 text-center text-sm font-black uppercase tracking-[0.16em] text-white shadow-[10px_10px_0_rgba(139,92,246,0.65)] transition hover:-translate-y-1"
+            className="btn-3d px-9 py-5 text-sm"
           >
             Open App
           </Link>

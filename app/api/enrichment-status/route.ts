@@ -5,7 +5,7 @@ import path from "node:path";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-type AnyRow = Record<string, any>;
+type AnyRow = Record<string, unknown>;
 
 const DATA_DIR = path.join(process.cwd(), "data");
 const PRECLEAN_JSON = path.join(DATA_DIR, "real-source-mentions-preclean.json");
@@ -16,7 +16,7 @@ const VISIBLE_STATE_JSON = path.join(DATA_DIR, "ai-visible-state.json");
 
 const BATCH_SIZE = 50;
 
-function readJson(filePath: string, fallback: any = []) {
+function readJson(filePath: string, fallback: unknown = []) {
   if (!fs.existsSync(filePath)) return fallback;
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
 }
@@ -46,7 +46,7 @@ function uniqueCompanyCount(rows: AnyRow[]) {
   const keys = new Set<string>();
 
   for (const row of rows) {
-    const key = row.companyKey || companyKeyFromName(row.rawName || "");
+    const key = String(row.companyKey || companyKeyFromName(String(row.rawName || "")));
     if (key) keys.add(key);
   }
 

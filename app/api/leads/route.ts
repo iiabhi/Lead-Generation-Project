@@ -14,7 +14,7 @@ export const dynamic = "force-dynamic";
 const STATE_PATH = path.join(LEADGRID_DATA_DIR, "leadgrid-visible-state.json");
 const LEADS_PATH = path.join(LEADGRID_DATA_DIR, "company-dashboard-leads.json");
 
-function getScore(lead: Record<string, any>) {
+function getScore(lead: Record<string, unknown>) {
   const raw =
     lead.aiIntentScore ||
     lead.intentScore ||
@@ -28,7 +28,7 @@ function getScore(lead: Record<string, any>) {
 }
 
 
-function getTime(lead: Record<string, any>) {
+function getTime(lead: Record<string, unknown>) {
   const raw =
     lead.capturedAt ||
     lead.updatedAt ||

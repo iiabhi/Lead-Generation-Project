@@ -16,7 +16,7 @@ function escapeCsv(value: unknown) {
   return `"${stringValue.replaceAll('"', '""')}"`;
 }
 
-function getScore(lead: Record<string, any>) {
+function getScore(lead: Record<string, unknown>) {
   const raw =
     lead.aiIntentScore ||
     lead.intentScore ||
@@ -29,7 +29,7 @@ function getScore(lead: Record<string, any>) {
   return Number.isFinite(value) ? value : 0;
 }
 
-function getCompanyName(lead: Record<string, any>) {
+function getCompanyName(lead: Record<string, unknown>) {
   return (
     lead.companyName ||
     lead.company ||

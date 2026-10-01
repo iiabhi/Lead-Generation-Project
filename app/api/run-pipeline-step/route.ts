@@ -31,7 +31,7 @@ const stepScripts: Record<StepName, string[]> = {
 
 const DATA_DIR = LEADGRID_DATA_DIR;
 
-function getCompanyName(row: Record<string, any>) {
+function getCompanyName(row: Record<string, unknown>) {
   return String(row.companyName || row.company || row.name || "").trim();
 }
 

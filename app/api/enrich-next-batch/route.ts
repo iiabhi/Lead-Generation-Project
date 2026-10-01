@@ -19,14 +19,14 @@ const VISIBLE_STATE_JSON = path.join(DATA_DIR, "ai-visible-state.json");
 
 const BATCH_SIZE = 50;
 
-type AnyRow = Record<string, any>;
+type AnyRow = Record<string, unknown>;
 
-function readJson(filePath: string, fallback: any = []) {
+function readJson(filePath: string, fallback: unknown = []) {
   if (!fs.existsSync(filePath)) return fallback;
   return JSON.parse(fs.readFileSync(filePath, "utf-8"));
 }
 
-function writeJson(filePath: string, value: any) {
+function writeJson(filePath: string, value: unknown) {
   fs.writeFileSync(filePath, JSON.stringify(value, null, 2));
 }
 
@@ -55,7 +55,7 @@ function uniqueCompanyCount(rows: AnyRow[]) {
   const keys = new Set<string>();
 
   for (const row of rows) {
-    const key = row.companyKey || companyKeyFromName(row.rawName || "");
+    const key = String(row.companyKey || companyKeyFromName(String(row.rawName || "")));
     if (key) keys.add(key);
   }
 
@@ -185,13 +185,15 @@ export async function POST() {
         errors: [precleanResult.stderr, enrichResult.stderr, buildResult.stderr].filter(Boolean).join("\n"),
       },
     });
-  } catch (error: any) {
+  } catch (error) {
+    const failure = error as { message?: string; stdout?: string; stderr?: string };
+
     return NextResponse.json(
       {
         ok: false,
-        error: error?.message || String(error),
-        stdout: error?.stdout || "",
-        stderr: error?.stderr || "",
+        error: failure?.message || String(error),
+        stdout: failure?.stdout || "",
+        stderr: failure?.stderr || "",
       },
       { status: 500 }
     );

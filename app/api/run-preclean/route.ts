@@ -6,7 +6,7 @@ import { runLocalScript } from "@/lib/run-local-script";
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-function getCompanyName(row: Record<string, any>) {
+function getCompanyName(row: Record<string, unknown>) {
   return String(row.companyName || row.company || row.name || "").trim();
 }
 

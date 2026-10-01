@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
-type Lead = Record<string, any>;
+type Lead = Record<string, unknown>;
 
 type LeadMeta = {
   totalAvailable: number;
@@ -89,13 +89,13 @@ function getDecisionFilter(decision: string) {
 }
 
 function getCompanyName(lead: Lead) {
-  return (
+  return String(
     lead.companyName ||
-    lead.company ||
-    lead.name ||
-    lead.aiCompanyName ||
-    lead.accountName ||
-    "Unknown company"
+      lead.company ||
+      lead.name ||
+      lead.aiCompanyName ||
+      lead.accountName ||
+      "Unknown company"
   );
 }
 
@@ -188,7 +188,7 @@ function getIcpFit(lead: Lead) {
 }
 
 
-function getNextAction(lead: any) {
+function getNextAction(lead: Lead) {
   const existing =
     lead.nextAction ||
     lead.next_action ||
@@ -279,6 +279,8 @@ export default function LeadsPage() {
   }
 
   useEffect(() => {
+    // Initial data load on mount; loadData sets loading state itself.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     loadData();
   }, []);
 

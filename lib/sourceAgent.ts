@@ -68,7 +68,7 @@ export function runSourceExtractionAgent(): {
 } {
   const rawMentions = (
     Array.isArray(rawData)
-      ? rawData.flatMap((item: any) =>
+      ? rawData.flatMap((item: Record<string, unknown>) =>
           Array.isArray(item?.mentions) ? item.mentions : [item]
         )
       : []

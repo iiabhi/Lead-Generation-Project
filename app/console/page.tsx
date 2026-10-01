@@ -139,9 +139,9 @@ export default function ConsolePage() {
     );
   }
 
-  function countTowards(
-    setter: React.Dispatch<React.SetStateAction<any>>,
-    key: string,
+  function countTowards<T extends Record<string, number>>(
+    setter: React.Dispatch<React.SetStateAction<T>>,
+    key: keyof T & string,
     target: number,
     duration = 900
   ) {
@@ -152,7 +152,7 @@ export default function ConsolePage() {
       currentStep += 1;
       const nextValue = Math.round((target * currentStep) / steps);
 
-      setter((current: any) => ({
+      setter((current) => ({
         ...current,
         [key]: Math.min(nextValue, target),
       }));

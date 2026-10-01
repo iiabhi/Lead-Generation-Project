@@ -17,7 +17,7 @@
 
 ## 🔗 Live Demo
 
-> **Live link: `https://lead-generation-project-eight.vercel.app/`
+> **[Open the live demo →](https://lead-generation-project-eight.vercel.app/)**
 
 ---
 
